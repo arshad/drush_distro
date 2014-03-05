@@ -2,7 +2,7 @@
 
  /**
  * @file
- * Some helpful drush commands for developing drush distributions.
+ * Some helpful drush commands for developing Drupal distributions.
  */
 
  /**
