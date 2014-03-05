@@ -75,7 +75,7 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
     $response = drush_shell_exec_output();
     if ($hash = $response[0]) {
       // Pattern to match git SHA1.
-      $pattern = '/(^projects\[' . preg_quote($project) . '\]\[download\]\[revision\][\s]*=[\s]*)([a-f0-9]*)$/m';
+      $pattern = '/(^projects\[' . preg_quote($project) . '\][\[download\]]*\[revision\][\s]*=[\s]*)([a-f0-9]*)$/m';
 
       // Do the replacement in the make file.
       $file_path = drush_normalize_path($make_file_path);
