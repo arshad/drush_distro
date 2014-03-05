@@ -20,6 +20,7 @@ function drush_distro_drush_command() {
     'arguments' => array(
       'project' => 'The name of the project.',
     ),
+    'topics' => array('distro'),
     'options' => array(
       'file' => array(
         'description' => 'The name of the make file.',
@@ -37,6 +38,7 @@ function drush_distro_drush_command() {
     'arguments' => array(
       'project' => 'The name of the project.',
     ),
+    'topics' => array('distro'),
     'options' => array(
       'file' => array(
         'description' => 'The name of the make file.',
