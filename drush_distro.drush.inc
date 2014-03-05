@@ -68,6 +68,11 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
     return drush_set_error('DRUSH_DISTRO_PUR_FAILED', dt('Error: project @project not found.', array('@project' => $project)));
   }
 
+  // Check if project is a git repository.
+  if (!is_dir($path . '/.git')) {
+    return drush_set_error('DRUSH_DISTRO_PUR_FAILED', dt('Error: @project is not a git repository.', array('@project' => $project))); 
+  }
+
   // Get project git hash.
   $current_dir = drush_cwd();
   chdir($path);
