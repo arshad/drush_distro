@@ -9,11 +9,13 @@ Some helpful drush commands for developing Drupal distributions
 
 ### Usage
 
-1. Update a project's revision in a make file. This will automatically get the git revision from projectname and update its revision in your distribution's make file.
+##### Update a project's revision in a make file.
 
     drush p-ur projectname
 
-2. Check if a project's revision has changed.
+This will automatically get the git revision from projectname and update its revision in your distribution's make file.
+
+##### Check if a project's revision has changed.
 
     drush p-rc projectname
 
