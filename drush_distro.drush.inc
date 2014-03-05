@@ -14,7 +14,7 @@ function drush_distro_drush_command() {
   $items['project-update-revision'] = array(
     'description' => "This command will update the project revision in a .make file to the latest git commit.",
     'examples' => array(
-      'drush pur panopoly_core' => 'Updates panopoly_core in drupal-org.make to latest revision',
+      'drush p-ur panopoly_core' => 'Updates panopoly_core in drupal-org.make to latest revision',
     ),
     'aliases' => array('p-ur'),
     'arguments' => array(
