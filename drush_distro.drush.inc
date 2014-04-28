@@ -81,6 +81,9 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
 
   // Get project location.
   $path = drupal_get_path('module', $project);
+  if (!$path) {
+    $path = drupal_get_path('theme', $project);
+  }
 
   // If a path to the project is not found, return.
   if (!$path) {
