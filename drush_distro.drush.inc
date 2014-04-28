@@ -95,9 +95,13 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
   // Get project git hash.
   $current_dir = drush_cwd();
   chdir($path);
-  if (drush_shell_exec("git log --pretty=format:'%h' -n 1")) {
+  if (drush_shell_exec("git log --pretty=format:'%h %m' -n 1")) {
     $response = drush_shell_exec_output();
-    if ($hash = $response[0]) {
+    if ($commit = $response[0]) {
+      // Get hash from commit.
+      preg_match("/^([a-f0-9]*)/", $commit, $matches);
+      $hash = $matches[1];
+
       // Pattern to match git SHA1.
       $pattern = '/(^projects\[' . preg_quote($project) . '\][\[download\]]*\[revision\][\s]*=[\s]*)([a-f0-9]*)$/m';
 
@@ -113,7 +117,10 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
       chdir($current_dir);
 
       // Print success message and return.
-      drush_print(dt('Revision for @project successfully updated.', array('@project' => $project)));
+      drush_print(dt('Revision for @project successfully updated to @hash.', array(
+        '@project' => $project,
+        '@hash' => $hash,
+      )));
 
       return;
     }
