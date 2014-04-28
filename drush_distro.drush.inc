@@ -105,9 +105,15 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
       // Pattern to match git SHA1.
       $pattern = '/(^projects\[' . preg_quote($project) . '\][\[download\]]*\[revision\][\s]*=[\s]*)([a-f0-9]*)$/m';
 
-      // Do the replacement in the make file.
+      // Get current make file content.
       $file_path = drush_normalize_path($make_file_path);
       $file_contents = file_get_contents($file_path);
+
+      // Get old_hash.
+      preg_match($pattern, $file_contents, $matches);
+      $old_hash = $matches[2];
+
+      // Do the replacement in the make file.
       $file_contents = preg_replace_callback($pattern, function ($match) use ($hash) {
         return $match[1] . $hash;
       }, $file_contents);
@@ -117,8 +123,9 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
       chdir($current_dir);
 
       // Print success message and return.
-      drush_print(dt('Revision for @project successfully updated to @hash.', array(
+      drush_print(dt('Revision for @project successfully updated from @old_hash to @hash.', array(
         '@project' => $project,
+        '@old_hash' => $old_hash,
         '@hash' => $hash,
       )));
 
