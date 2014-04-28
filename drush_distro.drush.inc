@@ -95,7 +95,7 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
   // Get project git hash.
   $current_dir = drush_cwd();
   chdir($path);
-  if (drush_shell_exec("git log --pretty=format:'%h %m' -n 1")) {
+  if (drush_shell_exec("git log --pretty=format:'%h %s' -n 1")) {
     $response = drush_shell_exec_output();
     if ($commit = $response[0]) {
       // Get hash from commit.
@@ -123,10 +123,16 @@ function drush_drush_distro_project_update_revision($project = FALSE) {
       chdir($current_dir);
 
       // Print success message and return.
-      drush_print(dt('Revision for @project successfully updated from @old_hash to @hash.', array(
+      // drush_print(dt('Revision for @project successfully updated from @old_hash to @hash.', array(
+      //   '@project' => $project,
+      //   '@old_hash' => $old_hash,
+      //   '@hash' => $hash,
+      // )));
+
+      // Show success message.
+      drush_print(dt('Updated revision for @project: @commit', array(
         '@project' => $project,
-        '@old_hash' => $old_hash,
-        '@hash' => $hash,
+        '@commit' => $commit,
       )));
 
       return;
